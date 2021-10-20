@@ -5,7 +5,7 @@
 // Changes here require a server restart.
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
-const fs = require("fs");
+const fs = require("fs-extra");
 const path = require("path");
 const dayjs = require("dayjs");
 const { imageType } = require("gridsome/lib/graphql/types/image");
@@ -288,6 +288,13 @@ module.exports = function (api) {
         });
     });
 
+    api.beforeBuild(async () => {
+        // Stage in cached images if they exist.
+        console.log("Stage in cached images from imageCacheDir")
+        console.log(`Moving from '${api.config.imageCacheDir}/ to '${api.config.imagesDir}'`)
+        moveFiles(`${api.config.imageCacheDir}/`, api.config.imagesDir);
+    });
+
     api.afterBuild(async () => {
         // Write all Platforms to /use/feed.json.
         let outDir = path.join(__dirname, "dist", "use");
@@ -296,8 +303,28 @@ module.exports = function (api) {
         fs.writeFile(feedPath, makePlatformsJson(platformsData), (error) => {
             if (error) throw error;
         });
+        // Copy out compiled images.
+        console.log("Cache images from build to imageCacheDir")
+        console.log(`Copying from '${api.config.imagesDir}' to '${api.config.imageCacheDir}/'`)
+        copyFiles(api.config.imagesDir, `${api.config.imageCacheDir}/`);
     });
 };
+
+async function copyFiles(source, dest) {
+    try {
+        await fs.copy(source, dest);
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+async function moveFiles(source, dest) {
+    try {
+        await fs.move(source, dest, {overwrite: true});
+    } catch (err) {
+        console.error(err);
+    }
+}
 
 function makePlatformsJson(platformsData) {
     let platforms = platformsData.data.platforms.edges.map((edge) => {
