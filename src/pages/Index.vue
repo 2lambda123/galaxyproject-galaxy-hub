@@ -25,32 +25,27 @@
                 title="SCIENTISTS"
                 link="/scientist/"
                 img="/images/undraw-illustrations/galaxy-for-scientists.svg"
-                alt="Galaxy for scientists"
-            />
+                alt="Galaxy for scientists" />
             <HomeProfile
                 title="TRAINERS"
                 link="/learn/"
                 img="/images/undraw-illustrations/galaxy-for-trainers.svg"
-                alt="Galaxy for trainers"
-            />
+                alt="Galaxy for trainers" />
             <HomeProfile
                 title="TOOL AUTHORS"
                 link="/tools/"
                 img="/images/undraw-illustrations/galaxy-for-tool-developers.svg"
-                alt="Galaxy for tool authors"
-            />
+                alt="Galaxy for tool authors" />
             <HomeProfile
                 title="DEVELOPERS"
                 link="/develop/"
                 img="/images/undraw-illustrations/galaxy-for-developers.svg"
-                alt="Galaxy for developers"
-            />
+                alt="Galaxy for developers" />
             <HomeProfile
                 title="ADMINS"
                 link="/admin"
                 img="/images/undraw-illustrations/galaxy-for-admins.svg"
-                alt="Galaxy for admins"
-            />
+                alt="Galaxy for admins" />
         </b-row>
 
         <div class="row">
@@ -60,8 +55,7 @@
                 :title="inserts.twitter.title"
                 :link="inserts.twitter.link"
                 :icon="inserts.twitter.icon"
-                :content="inserts.twitter.content"
-            />
+                :content="inserts.twitter.content" />
         </div>
 
         <div class="row">
@@ -70,28 +64,19 @@
                 :link="inserts.videos.link"
                 :icon="inserts.videos.icon"
                 :content="inserts.videos.content"
-                :items="inserts.videos.items"
-            />
+                :items="inserts.videos.items" />
             <HomeCard title="Blog" link="/blog/" icon="fas fa-pencil-alt" :items="latest.blog" />
             <HomeCard title="Careers" link="/careers/" icon="fas fa-user-astronaut" :items="latest.careers" />
         </div>
 
         <div class="row">
             <HomeCard
-                :title="inserts.platforms.title"
-                :link="inserts.platforms.link"
-                :icon="inserts.platforms.icon"
-                :content="inserts.platforms.content"
-                :items="inserts.platforms.items"
-            />
-            <HomeCard
                 :title="inserts.pubs.title"
                 :link="inserts.pubs.link"
                 :icon="inserts.pubs.icon"
                 :content="inserts.pubs.content"
                 :items="inserts.pubs.items"
-                :width="8"
-            />
+                :width="12" />
         </div>
 
         <footer class="page-footer markdown" v-if="$page.footer" v-html="$page.footer.content" />
