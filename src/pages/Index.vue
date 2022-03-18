@@ -18,8 +18,6 @@
                 <div class="text-center markdown" v-html="$page.jumbotron.content" />
             </section>
         </div>
-        <br /><font-awesome-icon icon="fa-regular fa-circle-user" />
-        <i class="fa-regular fa-circle-user"></i>
         <b-row id="profiles" class="justify-content-md-center">
             <HomeProfile
                 title="SCIENTISTS"
