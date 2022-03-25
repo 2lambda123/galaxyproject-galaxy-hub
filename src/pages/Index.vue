@@ -68,13 +68,7 @@
         </div>
 
         <div class="row">
-            <HomeCard
-                :title="inserts.pubs.title"
-                :link="inserts.pubs.link"
-                :icon="inserts.pubs.icon"
-                :content="inserts.pubs.content"
-                :items="inserts.pubs.items"
-                :width="12" />
+            <Publications />
         </div>
 
         <footer class="page-footer markdown" v-if="$page.footer" v-html="$page.footer.content" />
@@ -83,12 +77,15 @@
 
 <script>
 import HomeCard from "@/components/HomeCard";
+import Publications from "@/components/Publications";
 import { rmPrefix, rmSuffix } from "~/utils.js";
 import HomeProfile from "../components/HomeProfile.vue";
+
 export default {
     components: {
         HomeCard,
         HomeProfile,
+        Publications,
     },
     metaInfo: {
         title: "Home",
@@ -124,9 +121,6 @@ export default {
             }
         })(document, "script", "twitter-wjs");
 
-        const altmetricScript = document.createElement("script");
-        altmetricScript.src = "https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js";
-        document.head.appendChild(altmetricScript);
     },
 };
 /** Convert an Article to an "item", with the title, link, and tease fields expected by ItemListBrief. */
