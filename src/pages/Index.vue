@@ -75,7 +75,9 @@
         </div>
 
         <div class="row">
-            <Publications />
+            <ClientOnly>
+                <Publications />
+            </ClientOnly>
         </div>
 
         <footer class="page-footer markdown" v-if="$page.footer" v-html="$page.footer.content" />
