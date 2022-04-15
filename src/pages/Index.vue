@@ -18,8 +18,6 @@
                 <div class="text-center markdown" v-html="$page.jumbotron.content" />
             </section>
         </div>
-        <br /><font-awesome-icon icon="fa-regular fa-circle-user" />
-        <i class="fa-regular fa-circle-user"></i>
         <b-row id="profiles" class="justify-content-md-center">
             <HomeProfile
                 title="SCIENTISTS"
@@ -77,21 +75,9 @@
         </div>
 
         <div class="row">
-            <HomeCard
-                :title="inserts.platforms.title"
-                :link="inserts.platforms.link"
-                :icon="inserts.platforms.icon"
-                :content="inserts.platforms.content"
-                :items="inserts.platforms.items"
-            />
-            <HomeCard
-                :title="inserts.pubs.title"
-                :link="inserts.pubs.link"
-                :icon="inserts.pubs.icon"
-                :content="inserts.pubs.content"
-                :items="inserts.pubs.items"
-                :width="8"
-            />
+            <ClientOnly>
+                <Publications />
+            </ClientOnly>
         </div>
 
         <footer class="page-footer markdown" v-if="$page.footer" v-html="$page.footer.content" />
@@ -100,12 +86,15 @@
 
 <script>
 import HomeCard from "@/components/HomeCard";
+import Publications from "@/components/Publications";
 import { rmPrefix, rmSuffix } from "~/utils.js";
 import HomeProfile from "../components/HomeProfile.vue";
+
 export default {
     components: {
         HomeCard,
         HomeProfile,
+        Publications,
     },
     metaInfo: {
         title: "Home",
@@ -140,10 +129,6 @@ export default {
                 fjs.parentNode.insertBefore(js, fjs);
             }
         })(document, "script", "twitter-wjs");
-
-        const altmetricScript = document.createElement("script");
-        altmetricScript.src = "https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js";
-        document.head.appendChild(altmetricScript);
     },
 };
 /** Convert an Article to an "item", with the title, link, and tease fields expected by ItemListBrief. */
