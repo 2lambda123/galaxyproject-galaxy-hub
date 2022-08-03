@@ -46,7 +46,7 @@
 
 <script>
 import Redirect from "@/components/Redirect";
-import { ensureDomain, humanDateSpan } from "~/lib/utils.js";
+import { isEmpty, getType, ensureDomain, humanDateSpan } from "~/lib/utils.js";
 import { getImage } from "~/lib/pages.mjs";
 import CONFIG from "~/../config.json";
 import * as dayjs from "dayjs";
@@ -55,6 +55,55 @@ const SOCIAL_TAGS_METADATA = [
     ["tease", "description", 200],
     ["image", "image", null],
 ];
+function makeJsonLd(meta) {
+    let json = {
+        "@context": "http://schema.org/",
+    };
+    switch (meta.category) {
+        case "events":
+            json["@type"] = "Event";
+            break;
+        case "news":
+            json["@type"] = "NewsArticle";
+            break;
+        case "blog":
+            json["@type"] = "BlogPosting";
+            break;
+    }
+    if (meta.title) {
+        json.name = meta.title;
+    }
+    if (meta.date) {
+        if (json["@type"] === "Event") {
+            json.startDate = meta.date;
+        } else {
+            json.datePublished = meta.date;
+        }
+    }
+    if (meta.end && json["@type"] === "Event") {
+        json.endDate = meta.end;
+    }
+    let contactNames;
+    if (meta.contacts && meta.contacts.length > 0) {
+        contactNames = meta.contacts.map((c) => c.name);
+    } else if (meta.contact) {
+        contactNames = meta.contact.split(",").map((rawName) => rawName.trim());
+    }
+    if (contactNames) {
+        json.contact = contactNames.map((name) => ({ "@type": "Person", name }));
+    }
+    let authorNames;
+    if (getType(meta.authors) === "Array" && meta.authors.length > 0) {
+        authorNames = meta.authors.map((a) => a.name);
+    } else if (getType(meta.authors) === "String" && meta.authors) {
+        authorNames = meta.authors.split(",").map((rawName) => rawName.trim());
+    }
+    if (authorNames) {
+        json.author = authorNames.map((name) => ({ "@type": "Person", name }));
+    }
+    json.url = `https://${CONFIG.host}${meta.path}`;
+    return json;
+}
 export default {
     components: {
         Redirect,
@@ -86,6 +135,14 @@ export default {
         if (info.meta !== undefined) {
             info.meta.push({ property: "og:type", content: "article" });
             info.meta.push({ property: "twitter:card", content: "summary_large_image" });
+        }
+        // Add JSON-LD.
+        if (info.script === undefined) {
+            info.script = [];
+        }
+        info.script.push({ json: makeJsonLd(this.article), type: "application/ld+json" });
+        // Return the metaInfo, if any.
+        if (!isEmpty(info)) {
             return info;
         }
     },
