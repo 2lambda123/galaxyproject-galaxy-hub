@@ -9,7 +9,10 @@ location:
 location_url: "/community/community-calls/"
 external_url:
 gtn: false
-contact: "Helena Rasche & Saskia Hiltemann"
+contacts:
+- id: helena-rasche
+  name: Helena Rasche
+- name: Saskia Hiltemann
 links:
 tags: ["community-call"]
 subsites: [all]

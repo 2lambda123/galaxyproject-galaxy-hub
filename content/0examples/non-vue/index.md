@@ -9,7 +9,9 @@ date: 2021-04-25
 days: 1
 continent: EU
 contact: Strong Mad
-contact_url: https://example.com
+contacts:
+- id: strong-mad
+  name: Strong Mad
 authors: Marzipan
 location:
   name: Strong Badia

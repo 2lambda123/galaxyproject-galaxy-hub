@@ -18,8 +18,15 @@
             </li>
             <li v-if="article.contact">
                 <span class="metakey">Contact: </span>
-                <a v-if="article.contact_url" :href="article.contact_url">{{ article.contact }}</a>
-                <template v-else>{{ article.contact }}</template>
+                {{ article.contact }}
+            </li>
+            <li v-else-if="article.contacts">
+                <span class="metakey">Contact: </span>
+                <template v-for="(contact, index) in article.contacts">
+                    <template v-if="index > 0">, </template>
+                    <a v-if="contact.id" :href="`/people/${contact.id}/`" :key="contact.id">{{ contact.name }}</a>
+                    <span v-else :key="index">{{ contact.name }}</span>
+                </template>
             </li>
             <li v-if="article.links.length > 0">
                 <span class="metakey">Links: </span>
