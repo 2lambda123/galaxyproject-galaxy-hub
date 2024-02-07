@@ -5,42 +5,44 @@
             <h3 v-if="subtitle">{{ subtitle }}</h3>
         </header>
 
-        <HomeTop :lead="bundles.lead" :jumbotron="inserts.jumbotron" />
+        <!-- <HomeTop :lead="bundles.lead" :jumbotron="inserts.jumbotron" /> -->
 
         <Bundle id="main-content" class="row" :bundle="bundles.main" :subclasses="['col-sm-12']" />
 
         <b-row id="profiles" class="justify-content-md-center">
             <HomeProfile
-                title="SCIENTISTS"
-                link="/scientist/"
+                title="Researchers"
+                link="#researchers"
                 img="/images/undraw-illustrations/galaxy-for-scientists.svg"
                 alt="Galaxy for scientists"
             />
             <HomeProfile
-                title="TRAINERS"
+                title="Data Analysts"
                 link="/learn/"
-                img="/images/undraw-illustrations/galaxy-for-trainers.svg"
+                img="/images/undraw-illustrations/galaxy-for-developers.svg"
                 alt="Galaxy for trainers"
             />
             <HomeProfile
-                title="TOOL AUTHORS"
+                title="Students"
                 link="/tools/"
                 img="/images/undraw-illustrations/galaxy-for-tool-developers.svg"
                 alt="Galaxy for tool authors"
             />
             <HomeProfile
-                title="DEVELOPERS"
+                title="Instructors"
                 link="/develop/"
-                img="/images/undraw-illustrations/galaxy-for-developers.svg"
+                img="/images/undraw-illustrations/galaxy-for-trainers.svg"
                 alt="Galaxy for developers"
             />
             <HomeProfile
-                title="ADMINS"
+                title="Developers"
                 link="/admin"
                 img="/images/undraw-illustrations/galaxy-for-admins.svg"
                 alt="Galaxy for admins"
             />
         </b-row>
+
+        <HomeTop :lead="bundles.lead" />
 
         <div class="row" v-for="(cardRow, i) of cardRows" :key="i">
             <HomeCard
